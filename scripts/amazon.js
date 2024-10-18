@@ -1,4 +1,5 @@
 import {products} from '../data/products.js';
+import { cart } from '../data/cart.js';
 
 let productsHTML='';
 products.forEach((product)=>{
@@ -15,7 +16,7 @@ products.forEach((product)=>{
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="./images/ratings/rating-${product.rating.stars*10}">
+              src="images/ratings/rating-${product.rating.stars*10}.png">
             <div class="product-rating-count link-primary">
                 ${(product.rating.count)}
             </div>
@@ -47,7 +48,8 @@ products.forEach((product)=>{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart" 
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>
@@ -57,3 +59,30 @@ products.forEach((product)=>{
 
 document.querySelector('.js-product-grid')
 .innerHTML=productsHTML;
+
+document.querySelectorAll('.js-add-to-cart')
+.forEach((button)=>{
+     button.addEventListener('click',()=>{
+       const productId=button.dataset.productId;
+       
+       let matchingItem;
+
+       cart.forEach((item)=>{
+            if(productId === item.productId){
+                 matchingItem=item;
+            } 
+       })
+
+       if(matchingItem){
+         matchingItem.quantity+=1;
+       }
+       else{
+        cart.push({
+          productName:productId,
+          quantity:1,
+        })
+ 
+       }
+       console.log(cart);
+     })
+})
