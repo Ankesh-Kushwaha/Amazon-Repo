@@ -1,28 +1,33 @@
-import { cart,removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/fixedPrice.js";
 
-let cartSummaryHTML='';
-cart.forEach((cartItem)=>{
-  const productId=cartItem.productId;
+let cartSummaryHTML = '';
+
+cart.forEach((cartItem) => {
+  const productId = cartItem.productId;
   let matchingProduct;
   products.forEach((product)=>{
-      if(product.id===productId){
-           matchingProduct=product;
-      }
+       if(productId===product.id){
+            matchingProduct=product;
+       }
   })
+  
+  // Check if matchingProduct exists before proceeding
+  // if (!matchingProduct) {
+  //   console.warn(`Product with ID ${productId} not found in products array.`);
+  //   return; // Skip this iteration if no product is found
+  // }
 
-  console.log(matchingProduct);
-
-  cartSummaryHTML+=`
+  // Create HTML for the cart item
+  cartSummaryHTML += `
   <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">
           Delivery date: Tuesday, June 21
         </div>
 
         <div class="cart-item-details-grid">
-          <img class="product-image"
-            src="${matchingProduct.image}">
+          <img class="product-image" src="${matchingProduct.image}">
 
           <div class="cart-item-details">
             <div class="product-name">
@@ -90,26 +95,21 @@ cart.forEach((cartItem)=>{
           </div>
         </div>
     </div>
-    
-      `;
-})
+  `;
+});
 
-console.log(cartSummaryHTML);
-document.querySelector('.js-order-summary')
-.innerHTML=cartSummaryHTML;
+// Inject the generated HTML into the DOM
+document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
 
+// Add event listeners to the delete buttons
+document.querySelectorAll('.js-delete-link').forEach((link) => {
+  link.addEventListener('click', () => {
+    const productId = link.dataset.productId;
+    removeFromCart(productId);
 
-
-document.querySelectorAll('.js-delete-link')
-.forEach((link)=>{
-      link.addEventListener('click',()=>{
-        const productId=link.dataset.productId;
-         removeFromCart(productId);
-
-       const container= document.querySelector(
-          `.js-cart-item-container-${productId}`
-         );
-         container.remove();
-      });
-})
-
+    const container = document.querySelector(`.js-cart-item-container-${productId}`);
+    if (container) {
+      container.remove(); // Remove the product's container from the DOM
+    }
+  });
+});
