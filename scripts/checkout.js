@@ -12,6 +12,8 @@ cart.forEach((cartItem)=>{
       }
   })
 
+  console.log(matchingProduct);
+
   cartSummaryHTML+=`
   <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">
@@ -92,8 +94,11 @@ cart.forEach((cartItem)=>{
       `;
 })
 
+console.log(cartSummaryHTML);
 document.querySelector('.js-order-summary')
 .innerHTML=cartSummaryHTML;
+
+
 
 document.querySelectorAll('.js-delete-link')
 .forEach((link)=>{
