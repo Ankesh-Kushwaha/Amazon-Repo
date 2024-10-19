@@ -4,6 +4,7 @@ import { formatCurrency } from "../utils/fixedPrice.js";
 import  dayjs     from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import  {deliveryOptions,getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPayementSummary } from "./payementSummary.js";
+import { totalCartItem } from "../utils/totalcartItem.js";
 
 
 
@@ -119,6 +120,11 @@ export function renderOrderSummary(){
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
         removeFromCart(productId);
+
+        let totalItem=totalCartItem();
+        document.querySelector('.js-checkout-item')
+        .innerHTML=`${totalItem} items`;
+        
         renderPayementSummary();
 
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
@@ -140,5 +146,9 @@ export function renderOrderSummary(){
             renderPayementSummary();
         });
     });
+
+   let totalItem=totalCartItem();
+   document.querySelector('.js-checkout-item')
+   .innerHTML=`${totalItem} items`;
   }
   
