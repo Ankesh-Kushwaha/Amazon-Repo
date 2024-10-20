@@ -5,6 +5,24 @@ import { loadCart } from "../data/cart.js";
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 
+async function loadPage(){
+   await loadProductsFetch(); //we use await only when we inside the async function
+   
+   await new Promise((resolve)=>{
+    loadCart(()=>{
+      resolve();
+    });
+  });
+
+  renderOrderSummary();
+  renderPayementSummary();
+}
+
+loadPage();
+
+
+
+/*
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve)=>{
@@ -18,6 +36,7 @@ Promise.all([
   renderOrderSummary();
   renderPayementSummary();
 })
+  */
 
 /*
 new Promise((resolve)=>{
