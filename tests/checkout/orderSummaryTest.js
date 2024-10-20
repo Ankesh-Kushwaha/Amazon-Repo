@@ -1,13 +1,13 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage } from "../../data/cart.js";
-import { loadProducts } from "../../data/products.js";
+import { loadProducts,loadProductsFetch} from "../../data/products.js";
 
 describe('test suit: render order Summary',()=>{
 
     beforeAll((done)=>{
-        loadProducts(()=>{
-            done();
-        });
+       loadProductsFetch().then(()=>{
+         done();
+       });
     });
     
     
