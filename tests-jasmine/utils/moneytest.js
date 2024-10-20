@@ -1,4 +1,4 @@
-import { formatCurrency } from "../scripts/utils/fixedPrice.js";
+import { formatCurrency } from "../../scripts/utils/fixedPrice.js";
 
 describe('test suite: formatCurrency',()=>{
     it('converts cent into dollars',()=>{
