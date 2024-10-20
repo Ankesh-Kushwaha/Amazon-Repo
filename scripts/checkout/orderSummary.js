@@ -35,7 +35,9 @@ export function renderOrderSummary(){
 
       // Create HTML for the cart item
       cartSummaryHTML += `
-      <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+      <div class="cart-item-container 
+      js-cart-item-container
+     js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
               ${dateString}
             </div>
@@ -150,5 +152,5 @@ export function renderOrderSummary(){
    let totalItem=totalCartItem();
    document.querySelector('.js-checkout-item')
    .innerHTML=`${totalItem} items`;
-  }
+}
   
