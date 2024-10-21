@@ -71,7 +71,7 @@ function renderTotalOrder(){
               </div>
 
               <div class="product-actions">
-                <a href="tracking.html">
+                <a href="tracking.html?orderId=${orderId}&productId=${productId}">
                   <button class="track-package-button button-secondary">
                     Track package
                   </button>
